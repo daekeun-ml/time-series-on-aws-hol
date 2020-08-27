@@ -1,5 +1,3 @@
-# time-series-on-aws-hol
-
 # Time series on AWS Hands on Lab
 
 ## Introduction
@@ -47,7 +45,7 @@ GluonTS supported algorithms:
 - Dataset description: https://archive.ics.uci.edu/ml/datasets/Metro+Interstate+Traffic+Volume
 
 
-### 3. Walmart Store Sales (Intermediate)
+### 3. Walmart Store Sales (Intermediate~Advanced)
 
 본 데이터셋은 2010-02-05에서 2012-11-01까지의 시계열 데이터로 45개의 월마트 매장의 **주단위** 매출액을 예측하는 데이터셋입니다. 각 매장에서는 여러 부서가 있으며, 각 상점의 부서 전체 매출을 예측하는 문제입니다.
 대상 시계열, 연관 시계열 데이터, 아이템 메타데이터를 모두 사용하기 때문에  `target time series`, `related time series`, `item metadata` 를 모두 활용하여 훈련 및 예측을 수행하게 됩니다.
