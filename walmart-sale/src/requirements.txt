@@ -1,0 +1,2 @@
+pandas
+gluonts==0.5.1
