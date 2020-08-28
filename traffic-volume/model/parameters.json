@@ -1,1 +1,0 @@
-{"batch_size": 32, "ctx": {"__kind__": "instance", "args": ["cpu", 0], "class": "mxnet.context.Context"}, "dtype": {"__kind__": "type", "class": "numpy.float32"}, "forecast_generator": {"__kind__": "instance", "args": [], "class": "gluonts.model.forecast_generator.SampleForecastGenerator", "kwargs": {}}, "freq": "H", "input_names": ["past_target"], "prediction_length": 168}
