@@ -1,7 +1,5 @@
 
 import os
-# os.system('pip install pandas==1.0.0')
-# os.system('pip install gluonts==0.5.1')
 import pandas as pd
 import gluonts 
 import numpy as np

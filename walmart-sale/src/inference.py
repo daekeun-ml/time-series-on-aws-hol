@@ -29,36 +29,51 @@ def model_fn(model_dir):
 
 
 def transform_fn(model, request_body, content_type='application/json', accept_type='application/json'):
+
+    related_cols = ['Temperature', 'Fuel_Price', 'CPI', 'Unemployment'] 
+    item_cols = ['Type', 'Size'] 
+    FREQ = 'W'
+    pred_length = 12
+
+    data = json.loads(request_body)    
     
-    related_cols = ['holiday', 'temp', 'rain_1h', 'snow_1h', 'clouds_all', 'weather_main', 'weather_description']    
-    FREQ = 'H'
-    pred_length = 24*7
-
-    data = json.loads(request_body)
-
     target_test_df = pd.DataFrame(data['target_values'], index=data['timestamp'])
     related_test_df = pd.DataFrame(data['related_values'], index=data['timestamp'])
-    related_test_df.columns = related_cols
+    item_df = pd.DataFrame(data['item'], index=data['store_id'])
+    item_df.columns = item_cols
         
     target = target_test_df.values
-    related = related_test_df.values
-    num_series = target_test_df.shape[1]
+    num_steps, num_series = target_test_df.shape
     start_dt = target_test_df.index[0]
-
-    related_list = [related_test_df[c].values for c in related_cols]    
-    test_lst = []
-
-    target_vec = target.squeeze()
-    related_vecs = [related.squeeze() for related in related_list]
-    dic = {FieldName.TARGET: target_vec, 
-           FieldName.START: start_dt,
-           FieldName.FEAT_DYNAMIC_REAL: related_vecs
-          } 
-    test_lst.append(dic)
-    test_ds = ListDataset(test_lst, freq=FREQ)
     
+    num_related_cols = len(related_cols)
+    num_features_per_feature = int(related_test_df.shape[1] / num_related_cols)
+    related_list = []
+
+    for feature_idx in range(0, num_related_cols):
+        start_idx = feature_idx * num_features_per_feature
+        end_idx = start_idx + num_features_per_feature
+        related_list.append(related_test_df.iloc[:, start_idx:end_idx].values)
+
+    test_lst = []
+    for i in range(0, num_series):
+        target_vec = target[:-pred_length, i]
+        related_vecs = [related[:, i] for related in related_list]
+        item = item_df.loc[i+1]    
+        dic = {FieldName.TARGET: target_vec, 
+               FieldName.START: start_dt,
+               FieldName.FEAT_DYNAMIC_REAL: related_vecs,
+               FieldName.FEAT_STATIC_CAT: [item[0]],
+               FieldName.FEAT_STATIC_REAL: [item[1]]
+              } 
+        test_lst.append(dic)
+
+    test_ds = ListDataset(test_lst, freq=FREQ)
+
     response_body = {}
     forecast_it = model.predict(test_ds)
-    forecast = list(forecast_it)
-    response_body['out'] = forecast[0].samples.mean(axis=0).tolist()
+
+    for idx, f in enumerate(forecast_it):
+        response_body[f'store_{idx}'] = f.samples.mean(axis=0).tolist()
+
     return json.dumps(response_body)
