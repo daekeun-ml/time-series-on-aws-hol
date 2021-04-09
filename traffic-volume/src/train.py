@@ -11,10 +11,10 @@ from mxnet.context import num_gpus
 import matplotlib.pyplot as plt
 
 from gluonts.dataset.util import to_pandas
-from gluonts.distribution import DistributionOutput, StudentTOutput, NegativeBinomialOutput, GaussianOutput
+from gluonts.mx.distribution import DistributionOutput, StudentTOutput, NegativeBinomialOutput, GaussianOutput
 from gluonts.model.simple_feedforward import SimpleFeedForwardEstimator
 from gluonts.model.deepar import DeepAREstimator
-from gluonts.trainer import Trainer
+from gluonts.mx.trainer import Trainer
 from gluonts.evaluation import Evaluator
 from gluonts.evaluation.backtest import make_evaluation_predictions, backtest_metrics
 from gluonts.model.predictor import Predictor

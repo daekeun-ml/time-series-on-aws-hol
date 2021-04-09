@@ -1,0 +1,9 @@
+numpy==1.19.5
+pandas==1.1.5
+pydantic==1.8.1
+setuptools-git==1.2
+multi-model-server==1.1.2
+mxnet==1.6.0
+retrying==1.3.3
+sagemaker-inference==1.5.5
+cmdstanpy==0.9.0

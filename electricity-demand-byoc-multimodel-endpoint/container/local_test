@@ -1,0 +1,5 @@
+docker run -v $(pwd)/models:/opt/ml/models -p 8080:8080 --entrypoint "python /usr/local/bin/dockerd-entrypoint.py serve" --rm demo-sagemaker-multimodel
+
+curl --data-binary test.json -H "Content-Type: application/json" -v http://localhost:8080/invocations
+
+pytest -v test_model_handler.py
