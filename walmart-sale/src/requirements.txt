@@ -1,2 +1,2 @@
 pandas==1.1.5
-gluonts==0.6.7
+gluonts==0.7.6
