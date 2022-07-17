@@ -35,11 +35,20 @@ GluonTS supported algorithms:
 사용 사례에 따라 3가지 데이터셋에 대해 실습해볼 수 있습니다.<br>
 만약 시계열 데이터를 다뤄본 경험이 없다면 1번부터 시작하는 것을 권장하며, 어느 정도 시계열 데이터를 다루는 데 익숙하다면 1,2번을 건너뛰고 3,4번을 진행하시면 됩니다.
 
+#### [중요] 본 워크샵은 SageMaker Classic Notebook 의 ml.p3.2xlarge 의 conda_mxnet_p37 커널 에서 "1. Predict Store Item Demand (Beginner)" 섹션 테스트가 완료 되었습니다.
+- SageMaker Studio Notebook 에서는 local mode 가 지원하지 않아 로컬 모드 부분은 에러 발생 합니다    
+
+
+### 0. 준비작업
+필요한 파이썬 패키지를 설치하고, 로컬 모드 셋업을 합니다.
+- 0.Setup-Environment\0.0.Setup-Environment.ipynb 먼저 실행
+
+
 ### 1. Predict Store Item Demand (Beginner)
 본 데이터셋은 10개의 상점, 50개의 아이템으로 **일단위** 판매 수량을 예측하는 데이터셋입니다.
 별도의 아이템 메타데이터나 연관 시계열 데이터가 없는 가장 간단한 데이터로, `related time series` 및 `item metadata` 없이 `target time series`만으로 훈련 및 예측을 수행하게 됩니다.
 
-- **[바로 가기](store-item-demand/)**    
+- **[바로 가기](store-item-demand/1.training_local.ipynb)**    
 - Dataset description: https://www.kaggle.com/c/demand-forecasting-kernels-only/overview 
 
 ### 2. Predict Traffic Volume (Intermediate)
